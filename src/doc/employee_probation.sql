@@ -1,0 +1,56 @@
+CREATE CATALOG batch_test WITH (
+'type' = 'hive' ,
+'default-database' = 'dwd' ,
+'hive-conf-dir' = '/Users/renzhuo/IdeaProjects/Flink_test/src/main/resources'
+);
+create table employee_probation(
+    staff_record_id  int,
+	employee_id  int,
+	employee_name  string,
+	record_time  date,
+	record_end_time  date,
+	record_type_chinese  string,
+	reason  string,
+	old_employee_status_cn string,
+	new_employee_status_cn string,
+	old_employee_type_cn string,
+	new_employee_type_cn string,
+	old_unit_id int,
+	old_position_id int,
+	old_unit_name  string,
+	old_position_name  string,
+	new_unit_id int,
+	new_position_id int,
+	new_unit_name  string,
+	new_position_name  string,
+	new_job_serial_name  string,
+	new_job_level_id int,
+	new_job_level_name  string,
+	old_unit_path_name string,
+	new_unit_path_name string,
+	new_emp_level_chinese  string,
+	new_department  string,
+	new_department_level  string,
+	new_department_fl  string,
+	new_level1  string,
+	new_level2  string,
+	new_level3  string,
+	new_level4  string,
+	new_level5  string,
+	new_job_type_chinese  string,
+	new_job_group  string,
+	new_job_family_name  string,
+	`type` string
+)WITH (
+'connector' = 'jdbc' ,
+'url' = 'jdbc:mysql://172.22.17.38:3306/dap'  ,
+'table-name' = 'employee_probation'  ,
+'driver' = 'com.mysql.cj.jdbc.Driver'  ,
+'username' = 'testdap'  ,
+'password' = 'h6jtcY_8PepE'  ,
+'sink.buffer-flush.max-rows' = '10000'  ,
+'sink.buffer-flush.interval' = '200ms'  ,
+'sink.max-retries' = '3'
+);
+insert into employee_probation
+select * from batch_test.dwd.employee_probation
